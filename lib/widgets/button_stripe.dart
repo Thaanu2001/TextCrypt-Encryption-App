@@ -1,7 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ButtonStipe extends StatelessWidget {
-  const ButtonStipe({Key? key}) : super(key: key);
+  final Function paste;
+  final Function clear;
+  final Function copy;
+  final Function share;
+  final bool isDone;
+  const ButtonStipe({
+    Key? key,
+    required this.paste,
+    required this.clear,
+    required this.copy,
+    required this.share,
+    required this.isDone,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +39,7 @@ class ButtonStipe extends StatelessWidget {
                 Icons.paste,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => paste(),
             ),
           ),
           SizedBox(width: 15),
@@ -45,7 +59,7 @@ class ButtonStipe extends StatelessWidget {
                 Icons.backspace_outlined,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => clear(),
             ),
           ),
           SizedBox(width: 15),
@@ -63,9 +77,9 @@ class ButtonStipe extends StatelessWidget {
               ),
               child: Icon(
                 Icons.copy,
-                color: Colors.white,
+                color: (isDone) ? Colors.white : Colors.white38,
               ),
-              onPressed: () {},
+              onPressed: (isDone) ? () => copy() : null,
             ),
           ),
           SizedBox(width: 15),
@@ -82,10 +96,10 @@ class ButtonStipe extends StatelessWidget {
                 backgroundColor: Color(0xff171717),
               ),
               child: Icon(
-                Icons.share_outlined,
-                color: Colors.white,
+                CupertinoIcons.share,
+                color: (isDone) ? Colors.white : Colors.white38,
               ),
-              onPressed: () {},
+              onPressed: (isDone) ? () => share() : null,
             ),
           ),
         ],

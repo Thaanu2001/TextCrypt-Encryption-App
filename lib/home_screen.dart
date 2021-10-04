@@ -1,10 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:encrypt_decrypt_app/icons/customicons_icons.dart';
 import 'package:encrypt_decrypt_app/widgets/button_stripe.dart';
 import 'package:encrypt_decrypt_app/widgets/password_stripe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share/share.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +15,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController textController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   bool stopTextAnimation = false;
+  bool isDone = false;
+
+  void pasteFunction() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    ClipboardData? cdata = await Clipboard.getData(Clipboard.kTextPlain);
+    if (cdata != null) textController.text = cdata.text as String;
+    print(cdata!.text);
+  }
+
+  void clearFunction() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    textController.text = '';
+    passController.text = '';
+  }
+
+  void copyFunction() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Clipboard.setData(ClipboardData(text: textController.text));
+  }
+
+  void shareFunction() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Share.share(textController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                ButtonStipe(),
+                ButtonStipe(
+                  paste: () => pasteFunction(),
+                  clear: () => clearFunction(),
+                  copy: () => copyFunction(),
+                  share: () => shareFunction(),
+                  isDone: isDone,
+                ),
                 Flexible(
                   fit: FlexFit.tight,
                   child: Container(
@@ -79,9 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               speed: Duration(milliseconds: 100),
                             ),
                           ],
-                          onTap: () {
-                            print("Tap Event");
-                          },
                         ),
                         Flexible(
                           fit: FlexFit.tight,
