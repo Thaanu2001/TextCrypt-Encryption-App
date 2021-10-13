@@ -74,7 +74,49 @@ class _HomeScreenState extends State<HomeScreen> {
     print(encrypted.base64);
   }
 
-  void decryptText() {}
+  void decryptText() {
+    try {
+      final iv = encrypt.IV.fromLength(16);
+
+      //* Create PBKDF2 instance using the SHA256 hash
+      var gen = new PBKDF2(hash: sha256);
+
+      //* Generate a 32 byte key using the given password and salt, with 1000 iterations
+      var keyPBKDF2 = gen.generateKey(passController.text, "salt", 1000, 32);
+
+      //* Digest the generated PBKDF2 Key
+      var digest = md5.convert(keyPBKDF2);
+
+      //* generate key using digested md5
+      final key = encrypt.Key.fromUtf8(digest.toString());
+
+      final encrypter =
+          encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
+
+      final decrypted = encrypter.decrypt64(textController.text, iv: iv);
+      textController.text = decrypted;
+    } catch (e) {
+      //* Password wrong popup
+      if (e.toString() ==
+          'Invalid argument(s): Invalid or corrupted pad block') {
+        showCupertinoDialog<void>(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: const Text('Wrong Password'),
+            content: const Text('Password you entered does not match'),
+            actions: <CupertinoDialogAction>[
+              CupertinoDialogAction(
+                child: const Text('Ok'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
