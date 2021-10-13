@@ -35,6 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
     FocusManager.instance.primaryFocus?.unfocus();
     textController.text = '';
     passController.text = '';
+
+    setState(() {
+      isDone = false;
+    });
   }
 
   void copyFunction() {
@@ -48,34 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void encryptText() {
-    final iv = encrypt.IV.fromLength(16);
-
-    //* Create PBKDF2 instance using the SHA256 hash
-    var gen = new PBKDF2(hash: sha256);
-
-    //* Generate a 32 byte key using the given password and salt, with 1000 iterations
-    var keyPBKDF2 = gen.generateKey(passController.text, "salt", 1000, 32);
-
-    //* Digest the generated PBKDF2 Key
-    var digest = md5.convert(keyPBKDF2);
-    print(digest.toString());
-
-    //* generate key using digested md5
-    final key = encrypt.Key.fromUtf8(digest.toString());
-
-    final encrypter =
-        encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
-
-    final encrypted = encrypter.encrypt(textController.text, iv: iv);
-    // print(encrypted.);
-    textController.text = encrypted.base64;
-    // final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-    print(encrypted.base64);
-  }
-
-  void decryptText() {
-    try {
+    if (passController.text != '' && textController.text != '') {
       final iv = encrypt.IV.fromLength(16);
 
       //* Create PBKDF2 instance using the SHA256 hash
@@ -86,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //* Digest the generated PBKDF2 Key
       var digest = md5.convert(keyPBKDF2);
+      print(digest.toString());
 
       //* generate key using digested md5
       final key = encrypt.Key.fromUtf8(digest.toString());
@@ -93,28 +71,112 @@ class _HomeScreenState extends State<HomeScreen> {
       final encrypter =
           encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
 
-      final decrypted = encrypter.decrypt64(textController.text, iv: iv);
-      textController.text = decrypted;
-    } catch (e) {
-      //* Password wrong popup
-      if (e.toString() ==
-          'Invalid argument(s): Invalid or corrupted pad block') {
-        showCupertinoDialog<void>(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-            title: const Text('Wrong Password'),
-            content: const Text('Password you entered does not match'),
-            actions: <CupertinoDialogAction>[
-              CupertinoDialogAction(
-                child: const Text('Ok'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
+      final encrypted = encrypter.encrypt(textController.text, iv: iv);
+
+      textController.text = encrypted.base64;
+
+      setState(() {
+        isDone = true;
+      });
+    } else {
+      showCupertinoDialog<void>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: const Text('Empty Fields'),
+          content: const Text('Please enter both text and password to encrypt'),
+          actions: <CupertinoDialogAction>[
+            CupertinoDialogAction(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void decryptText() {
+    if (passController.text != '' && textController.text != '') {
+      try {
+        final iv = encrypt.IV.fromLength(16);
+
+        //* Create PBKDF2 instance using the SHA256 hash
+        var gen = new PBKDF2(hash: sha256);
+
+        //* Generate a 32 byte key using the given password and salt, with 1000 iterations
+        var keyPBKDF2 = gen.generateKey(passController.text, "salt", 1000, 32);
+
+        //* Digest the generated PBKDF2 Key
+        var digest = md5.convert(keyPBKDF2);
+
+        //* generate key using digested md5
+        final key = encrypt.Key.fromUtf8(digest.toString());
+
+        final encrypter =
+            encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ecb));
+
+        final decrypted = encrypter.decrypt64(textController.text, iv: iv);
+        textController.text = decrypted;
+
+        setState(() {
+          isDone = true;
+        });
+      } catch (e) {
+        print(e);
+        //* Password wrong popup
+        if (e.toString() ==
+            'Invalid argument(s): Invalid or corrupted pad block') {
+          showCupertinoDialog<void>(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: const Text('Wrong Password'),
+              content: const Text('Password you entered does not match'),
+              actions: <CupertinoDialogAction>[
+                CupertinoDialogAction(
+                  child: const Text('Ok'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          );
+        } else {
+          showCupertinoDialog<void>(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: const Text('Invalid Input'),
+              content: const Text('Invalid text or password entered'),
+              actions: <CupertinoDialogAction>[
+                CupertinoDialogAction(
+                  child: const Text('Ok'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          );
+        }
       }
+    } else {
+      showCupertinoDialog<void>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: const Text('Empty Fields'),
+          content: const Text('Please enter both text and password to decrypt'),
+          actions: <CupertinoDialogAction>[
+            CupertinoDialogAction(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -147,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0xff171717),
                 width: double.infinity,
                 child: Text(
-                  'Encrypt Decrypt',
+                  'RayGun - Encrypt Decrypt',
                   style: GoogleFonts.robotoMono(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
