@@ -1,9 +1,13 @@
+import 'package:encrypt_decrypt_app/home_screen.dart';
 import 'package:encrypt_decrypt_app/icons/customicons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PasswrodStripe extends StatefulWidget {
-  const PasswrodStripe({Key? key}) : super(key: key);
+  final Function encrypt;
+  final Function decrypt;
+  const PasswrodStripe({Key? key, required this.encrypt, required this.decrypt})
+      : super(key: key);
 
   @override
   State<PasswrodStripe> createState() => _PasswrodStripeState();
@@ -30,7 +34,7 @@ class _PasswrodStripeState extends State<PasswrodStripe> {
             flex: 1,
             fit: FlexFit.tight,
             child: TextFormField(
-              // controller: password,
+              controller: passController,
               autofillHints: [AutofillHints.newPassword],
               textInputAction: TextInputAction.done,
               // validator: (val) =>
@@ -88,10 +92,26 @@ class _PasswrodStripeState extends State<PasswrodStripe> {
               backgroundColor: Color(0xff171717),
             ),
             child: Icon(
-              Icons.lock_outline_sharp,
+              Icons.lock_outline,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () => widget.encrypt(),
+          ),
+          SizedBox(width: 15),
+          TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              primary: Colors.grey,
+              backgroundColor: Color(0xff171717),
+            ),
+            child: Icon(
+              Icons.lock_open_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () => widget.decrypt(),
           ),
         ],
       ),
