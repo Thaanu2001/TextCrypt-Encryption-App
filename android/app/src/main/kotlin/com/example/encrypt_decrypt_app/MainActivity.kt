@@ -1,4 +1,4 @@
-package com.example.encrypt_decrypt_app
+package com.raygun.encrypt_decrypt
 
 import io.flutter.embedding.android.FlutterActivity
 
