@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.encrypt_decrypt_app">
+    package="com.raygun.encrypt_decrypt">
    <application
-        android:label="encrypt_decrypt_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="RayGun"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

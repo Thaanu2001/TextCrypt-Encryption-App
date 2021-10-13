@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: EdgeInsets.fromLTRB(
-                    20, MediaQuery.of(context).padding.top, 20, 20),
+                    20, MediaQuery.of(context).padding.top + 5, 20, 20),
                 color: Color(0xff171717),
                 width: double.infinity,
                 child: Text(
