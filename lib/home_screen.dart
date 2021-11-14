@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0xff171717),
                 width: double.infinity,
                 child: Text(
-                  'RayGun - Encrypt Decrypt',
+                  'TextCrypt - Encrypt Decrypt',
                   style: GoogleFonts.robotoMono(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
