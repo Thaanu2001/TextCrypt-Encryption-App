@@ -35,14 +35,7 @@ class _PasswrodStripeState extends State<PasswrodStripe> {
             fit: FlexFit.tight,
             child: TextFormField(
               controller: passController,
-              autofillHints: [AutofillHints.newPassword],
               textInputAction: TextInputAction.done,
-              // validator: (val) =>
-              //     validatePassword(val as String),
-              // autovalidateMode: (isValidated)
-              // ? AutovalidateMode.onUserInteraction
-              // : null,
-
               obscureText: _obscurePassword,
               style: GoogleFonts.robotoMono(
                   fontSize: 18,

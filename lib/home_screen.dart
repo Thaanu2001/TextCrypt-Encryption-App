@@ -208,12 +208,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     20, MediaQuery.of(context).padding.top + 5, 20, 20),
                 color: Color(0xff171717),
                 width: double.infinity,
-                child: Text(
-                  'TextCrypt - Encrypt Decrypt',
-                  style: GoogleFonts.robotoMono(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'TextCrypt - Encrypt Decrypt',
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
