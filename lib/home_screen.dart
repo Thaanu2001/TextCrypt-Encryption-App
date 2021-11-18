@@ -189,9 +189,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
-          statusBarBrightness:
-              Brightness.dark // Dark == white status bar -- for IOS.
-          ),
+        // statusBarColor: Colors.transparent, // Color for Android
+        statusBarBrightness:
+            Brightness.dark, // Dark == white status bar -- for IOS.
+        statusBarIconBrightness: Brightness.light,
+      ),
     );
 
     return GestureDetector(
