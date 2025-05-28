@@ -83,7 +83,7 @@ class PBKDF2 {
   }
 }
 
-class SyncChunkedConversionSink extends ChunkedConversionSink<Digest> {
+class SyncChunkedConversionSink implements ChunkedConversionSink<Digest> {
   final List<Digest> accumulated = <Digest>[];
 
   @override

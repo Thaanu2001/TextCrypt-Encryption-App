@@ -1,67 +1,47 @@
-import 'package:encrypt_decrypt_app/home_screen.dart';
-import 'package:encrypt_decrypt_app/icons/customicons_icons.dart';
+// import '../../assets/icons/customicons_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PasswrodStripe extends StatefulWidget {
-  final Function encrypt;
-  final Function decrypt;
-  const PasswrodStripe({Key? key, required this.encrypt, required this.decrypt})
-      : super(key: key);
+import '../../../constants/string_constants.dart';
+import '../../../controllers/home_controller.dart';
 
+class EncryptSection extends GetView<HomeController> {
   @override
-  State<PasswrodStripe> createState() => _PasswrodStripeState();
-}
-
-class _PasswrodStripeState extends State<PasswrodStripe> {
-  bool _obscurePassword = true;
-
-  //* Show Password
-  void _showPassword() {
-    setState(() {
-      _obscurePassword = !_obscurePassword;
-    });
-  }
+  String? get tag => homeControllerTag;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(
-          20, 20, 20, MediaQuery.of(context).padding.bottom + 8),
+        20,
+        20,
+        20,
+        MediaQuery.of(context).padding.bottom + 8,
+      ),
       child: Row(
         children: [
           Flexible(
             flex: 1,
             fit: FlexFit.tight,
             child: TextFormField(
-              controller: passController,
+              controller: controller.passController,
               textInputAction: TextInputAction.done,
-              obscureText: _obscurePassword,
+              obscureText: controller.obscurePassword.value,
               style: GoogleFonts.robotoMono(
                   fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.w400),
               decoration: new InputDecoration(
                 hintText: 'Password',
-                hintStyle: GoogleFonts.robotoMono(color: Colors.white38),
-                contentPadding: EdgeInsets.fromLTRB(15, 10, 10, 10),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: new BorderSide(color: Colors.white38, width: 1.5),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: new BorderSide(color: Colors.white38, width: 2),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                filled: true,
-                isDense: true,
-                fillColor: Color(0xff171717),
                 suffixIcon: InkWell(
-                  onTap: _showPassword,
+                  onTap: controller.showPassword,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Icon(
-                      _obscurePassword ? Customicons.eye_off : Customicons.eye,
+                      controller.obscurePassword.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       size: 18,
                       color: Colors.white38,
                     ),
@@ -81,14 +61,14 @@ class _PasswrodStripeState extends State<PasswrodStripe> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
-              primary: Colors.grey,
+              foregroundColor: Colors.grey,
               backgroundColor: Color(0xff171717),
             ),
             child: Icon(
               Icons.lock_outline,
               color: Colors.white,
             ),
-            onPressed: () => widget.encrypt(),
+            onPressed: () => controller.encryptText(),
           ),
           SizedBox(width: 15),
           TextButton(
@@ -97,14 +77,14 @@ class _PasswrodStripeState extends State<PasswrodStripe> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
-              primary: Colors.grey,
+              foregroundColor: Colors.grey,
               backgroundColor: Color(0xff171717),
             ),
             child: Icon(
               Icons.lock_open_outlined,
               color: Colors.white,
             ),
-            onPressed: () => widget.decrypt(),
+            onPressed: () => controller.decryptText(),
           ),
         ],
       ),
