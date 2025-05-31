@@ -1,23 +1,31 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../constants/string_constants.dart';
+import '../pages/premium/widgets/purchase_premium_popup.dart';
 import '../routes/routes.dart';
+import 'premium_controller.dart';
 
 class InterstitialAdController extends GetxController {
+  PremiumController get premiumController =>
+      Get.find<PremiumController>(tag: premiumControllerTag);
+
   InterstitialAd? interstitialAd;
   RxBool interstitialAdLoaded = false.obs;
   RxInt pageOpenCount = 4.obs;
 
-  final adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/1033173712'
-      : 'ca-app-pub-3940256099942544/4411468910';
+  final adUnitId = savedTextsBannerAdId;
 
   @override
   void onInit() {
     super.onInit();
-    loadInterstitialAd();
+    premiumController.isPremium.listen((isPremium) {
+      if (isPremium == true) {
+        interstitialAd?.dispose();
+      } else if (isPremium == false) {
+        loadInterstitialAd();
+      }
+    });
   }
 
   @override
@@ -64,7 +72,11 @@ class InterstitialAdController extends GetxController {
             // Called when the ad dismissed full screen content.
             onAdDismissedFullScreenContent: (ad) {
               Get.back();
-              Get.toNamed(Routes.SAVED_TEXTS);
+              purchasePremiumPopup(Get.context!).then((val) {
+                if (val != false) {
+                  Get.toNamed(Routes.SAVED_TEXTS);
+                }
+              });
               // Dispose the ad here to free resources.
               ad.dispose();
             },

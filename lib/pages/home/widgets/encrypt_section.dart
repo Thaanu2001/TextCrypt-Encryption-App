@@ -20,32 +20,34 @@ class EncryptSection extends GetView<HomeController> {
           Flexible(
             flex: 1,
             fit: FlexFit.tight,
-            child: TextFormField(
-              controller: controller.passController,
-              textInputAction: TextInputAction.done,
-              obscureText: controller.obscurePassword.value,
-              style: GoogleFonts.robotoMono(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400),
-              decoration: new InputDecoration(
-                hintText: 'Password',
-                suffixIcon: InkWell(
-                  onTap: controller.showPassword,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Icon(
-                      controller.obscurePassword.value
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      size: 18,
-                      color: Colors.white38,
+            child: Obx(
+              () => TextFormField(
+                controller: controller.passController,
+                textInputAction: TextInputAction.done,
+                obscureText: controller.obscurePassword.value,
+                style: GoogleFonts.robotoMono(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400),
+                decoration: new InputDecoration(
+                  hintText: 'Password',
+                  suffixIcon: InkWell(
+                    onTap: controller.showPassword,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Icon(
+                        controller.obscurePassword.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        size: 18,
+                        color: Colors.white38,
+                      ),
                     ),
                   ),
-                ),
-                suffixIconConstraints: BoxConstraints(
-                  minWidth: 40,
-                  maxHeight: 20,
+                  suffixIconConstraints: BoxConstraints(
+                    minWidth: 40,
+                    maxHeight: 20,
+                  ),
                 ),
               ),
             ),

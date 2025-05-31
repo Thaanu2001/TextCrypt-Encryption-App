@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:encrypt_decrypt_app/constants/string_constants.dart';
-import 'package:encrypt_decrypt_app/controllers/saved_texts_controller.dart';
-import 'package:encrypt_decrypt_app/models/save_text_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,11 +9,18 @@ import 'package:share/share.dart';
 
 import '../components/custom_button.dart';
 import '../components/custom_popup.dart';
+import '../constants/string_constants.dart';
+import '../models/save_text_model.dart';
+import '../pages/premium/widgets/purchase_premium_popup.dart';
 import '../pbkdf2.dart';
+import 'premium_controller.dart';
+import 'saved_texts_controller.dart';
 
 class HomeController extends GetxController {
   final SavedTextsController savedTextsController =
       Get.find<SavedTextsController>(tag: savedTextsControllerTag);
+  final PremiumController premiumController =
+      Get.find<PremiumController>(tag: premiumControllerTag);
 
   TextEditingController textController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -36,22 +38,31 @@ class HomeController extends GetxController {
 
   BannerAd? homeBannerAd;
   RxBool homeBannerAdLoaded = false.obs;
-  final homeBannerAdUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/9214589741'
-      : 'ca-app-pub-3940256099942544/2435281174';
+  final homeBannerAdUnitId = homeBannerAdId;
 
   InterstitialAd? interstitialAd;
   RxBool interstitialAdLoaded = false.obs;
   RxInt decryptCount = 4.obs;
-  final interstitialAdUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/1033173712'
-      : 'ca-app-pub-3940256099942544/4411468910';
+  final interstitialAdUnitId = decryptInterstitialAdId;
+
+  InterstitialAd? saveTextInterstitialAd;
+  RxBool saveTextInterstitialAdLoaded = false.obs;
+  final saveTextInterstitialAdUnitId = saveTextInterstitialAdId;
 
   @override
   void onInit() {
     super.onInit();
-    loadHomeBannerAd();
-    loadDecryptInterstitialAd();
+    premiumController.isPremium.listen((isPremium) {
+      if (isPremium == true) {
+        homeBannerAd?.dispose();
+        interstitialAd?.dispose();
+        saveTextInterstitialAd?.dispose();
+      } else if (isPremium == false) {
+        loadHomeBannerAd();
+        loadDecryptInterstitialAd();
+        loadSaveTextInterstitialAd();
+      }
+    });
     textController.addListener(() {
       if (textController.text.isEmpty) {
         isDone.value = false;
@@ -310,7 +321,11 @@ class HomeController extends GetxController {
             },
             // Called when the ad dismissed full screen content.
             onAdDismissedFullScreenContent: (ad) {
-              decryptText();
+              purchasePremiumPopup(Get.context!).then((val) {
+                if (val != false) {
+                  decryptText();
+                }
+              });
               // Dispose the ad here to free resources.
               ad.dispose();
             },
@@ -322,6 +337,68 @@ class HomeController extends GetxController {
           // Keep a reference to the ad so you can show it later.
           interstitialAd = ad;
           interstitialAdLoaded.value = true;
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  void showSaveTextInterstitialAd() {
+    if (saveTextInterstitialAdLoaded.value) {
+      saveTextInterstitialAd?.show();
+      saveTextInterstitialAdLoaded.value = false;
+      loadSaveTextInterstitialAd();
+    } else {
+      savedTextsController.insertText(
+        textController.text,
+        savedTextController.text,
+      );
+      savedTextController.clear();
+      Get.back();
+    }
+  }
+
+  void loadSaveTextInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: saveTextInterstitialAdUnitId,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            // Called when the ad showed the full screen content.
+            onAdShowedFullScreenContent: (ad) {},
+            // Called when an impression occurs on the ad.
+            onAdImpression: (ad) {},
+            // Called when the ad failed to show full screen content.
+            onAdFailedToShowFullScreenContent: (ad, err) {
+              // Dispose the ad here to free resources.
+              ad.dispose();
+            },
+            // Called when the ad dismissed full screen content.
+            onAdDismissedFullScreenContent: (ad) {
+              Get.back();
+              purchasePremiumPopup(Get.context!).then((val) {
+                savedTextsController.insertText(
+                  textController.text,
+                  savedTextController.text,
+                );
+                savedTextController.clear();
+              });
+              // Dispose the ad here to free resources.
+              ad.dispose();
+            },
+            // Called when a click is recorded for an ad.
+            onAdClicked: (ad) {},
+          );
+
+          print('$ad loaded.');
+          // Keep a reference to the ad so you can show it later.
+          saveTextInterstitialAd = ad;
+          saveTextInterstitialAdLoaded.value = true;
         },
         // Called when an ad request failed.
         onAdFailedToLoad: (LoadAdError error) {

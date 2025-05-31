@@ -83,7 +83,10 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
                       color: Colors.white,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.PREMIUM);
+                  },
                 ),
                 ListTile(
                   splashColor: AppTheme.greyShade1,

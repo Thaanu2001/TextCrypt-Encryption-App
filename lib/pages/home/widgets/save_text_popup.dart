@@ -7,10 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_popup.dart';
 
-void saveTextPopup(
-  BuildContext context, {
-  required String text,
-}) {
+void saveTextPopup(BuildContext context) {
   final HomeController controller = Get.find<HomeController>(
     tag: homeControllerTag,
   );
@@ -55,12 +52,7 @@ void saveTextPopup(
             onTap: () {
               if (controller.savedTextFormKey.currentState?.validate() ??
                   false) {
-                controller.savedTextsController.insertText(
-                  text,
-                  controller.savedTextController.text,
-                );
-                controller.savedTextController.clear();
-                Get.back();
+                controller.showSaveTextInterstitialAd();
               }
             },
             text: 'Save',

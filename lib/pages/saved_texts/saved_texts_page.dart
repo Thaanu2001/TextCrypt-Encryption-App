@@ -105,6 +105,9 @@ class SavedTextsPage extends GetView<SavedTextsController> {
                           },
                         ),
                         SavedTextsAdWidget(),
+                        SizedBox(
+                          height: MediaQuery.paddingOf(context).bottom + 8,
+                        ),
                       ],
                     ),
                   ),

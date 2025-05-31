@@ -89,7 +89,7 @@ class CustomButton extends StatelessWidget {
                   style: textStyle ??
                       Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: buttonType == ButtonType.secondary
-                                ? AppTheme.greyShade1
+                                ? AppTheme.greyTint4
                                 : AppTheme.white,
                             fontWeight: FontWeight.w600,
                           ),

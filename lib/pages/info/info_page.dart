@@ -138,6 +138,11 @@ class InfoPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
+                'If you have any questions or suggestions, feel free to reach out to us at: contact@eleetra.com',
+                style: GoogleFonts.notoSans(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              Text(
                 'Developed by Eleetra (Private) Limited',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: AppTheme.greyTint2,

@@ -1,16 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import 'constants/theme_constants.dart';
 import 'routes/routes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
 
+  await initRevenueCat();
+
   runApp(Main(initialRoute: Routes.initial));
+}
+
+Future<void> initRevenueCat() async {
+  await Purchases.setLogLevel(LogLevel.debug);
+
+  PurchasesConfiguration configuration;
+  configuration = PurchasesConfiguration(
+    Platform.isAndroid
+        ? 'goog_RdGwOmTXQwozrAUfwaxaeGlpQAf'
+        : 'appl_sdUWWKcUKGizjrgfJwBtcmelKGJ',
+  );
+  await Purchases.configure(configuration);
 }
 
 class Main extends StatelessWidget {

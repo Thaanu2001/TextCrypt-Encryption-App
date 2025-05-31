@@ -6,29 +6,38 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 
+import '../constants/string_constants.dart';
 import '../constants/theme_constants.dart';
 import '../models/save_text_model.dart';
 import '../pages/saved_texts/widgets/delete_confirmation_popup.dart';
+import 'premium_controller.dart';
 
 class SavedTextsController extends GetxController {
+  final PremiumController premiumController =
+      Get.find<PremiumController>(tag: premiumControllerTag);
+
   late Database db;
   final RxBool isDataLoading = false.obs;
   final RxList<SaveText> savedTexts = <SaveText>[].obs;
 
   BannerAd? savedTextsBannerAd;
   RxBool savedTextsBannerAdLoaded = false.obs;
-  final adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/9214589741'
-      : 'ca-app-pub-3940256099942544/2435281174';
+  final adUnitId = openSavedTextsInterstitialAdId;
 
   @override
   void onInit() {
     super.onInit();
-    loadSavedTextsBannerAd();
+    premiumController.isPremium.listen((isPremium) {
+      if (isPremium == true) {
+        savedTextsBannerAd?.dispose();
+      } else if (isPremium == false) {
+        loadSavedTextsBannerAd();
+      }
+    });
     initiateDatabase();
   }
 
@@ -92,6 +101,7 @@ class SavedTextsController extends GetxController {
       savedTexts.value = List.generate(maps.length, (i) {
         return SaveText.fromMap(maps[i]);
       });
+      savedTexts.sort((a, b) => b.id!.compareTo(a.id!));
     } catch (e) {
       Get.snackbar(
         'Error',

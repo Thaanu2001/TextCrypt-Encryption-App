@@ -124,10 +124,7 @@ class ActionsSection extends GetView<HomeController> {
                       : Colors.white38,
                 ),
                 onPressed: (controller.canSaveText.value)
-                    ? () => saveTextPopup(
-                          context,
-                          text: controller.textController.text,
-                        )
+                    ? () => saveTextPopup(context)
                     : null,
               ),
             ),
