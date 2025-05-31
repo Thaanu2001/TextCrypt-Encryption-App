@@ -1,4 +1,5 @@
 // import '../../assets/icons/customicons_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,12 +14,7 @@ class EncryptSection extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(
-        20,
-        20,
-        20,
-        MediaQuery.of(context).padding.bottom + 8,
-      ),
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Row(
         children: [
           Flexible(
@@ -65,8 +61,9 @@ class EncryptSection extends GetView<HomeController> {
               backgroundColor: Color(0xff171717),
             ),
             child: Icon(
-              Icons.lock_outline,
+              CupertinoIcons.lock,
               color: Colors.white,
+              size: 20,
             ),
             onPressed: () => controller.encryptText(),
           ),
@@ -81,10 +78,11 @@ class EncryptSection extends GetView<HomeController> {
               backgroundColor: Color(0xff171717),
             ),
             child: Icon(
-              Icons.lock_open_outlined,
+              CupertinoIcons.lock_open,
               color: Colors.white,
+              size: 20,
             ),
-            onPressed: () => controller.decryptText(),
+            onPressed: () => controller.showDecryptInterstitialAd(),
           ),
         ],
       ),
