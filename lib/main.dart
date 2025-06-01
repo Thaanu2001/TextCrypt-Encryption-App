@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,11 @@ import 'routes/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  if (kDebugMode) {
+    MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(testDeviceIds: ['e0053cdea2b90e74876eba6e3048e6b8']),
+    );
+  }
 
   await initRevenueCat();
 

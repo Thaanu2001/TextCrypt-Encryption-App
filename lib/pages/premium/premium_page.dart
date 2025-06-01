@@ -32,7 +32,7 @@ class PremiumPage extends GetView<PremiumController> {
                 children: [
                   SizedBox(height: 10),
                   Text(
-                    'Support us and unlock a smoother, distraction-free app — no more ads, just you and the content',
+                    'Support us and unlock a smoother, distraction-free app — no more ads, just you and the content.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 20),
@@ -82,9 +82,9 @@ class PremiumPage extends GetView<PremiumController> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          '• Ad-free experience\n'
-                          '• Lifetime access\n'
-                          '• Support the development of the application',
+                          '• Ad-free experience.\n'
+                          '• Lifetime access.\n'
+                          '• Support the development of the application.',
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: AppTheme.white,

@@ -14,7 +14,7 @@ class InterstitialAdController extends GetxController {
   RxBool interstitialAdLoaded = false.obs;
   RxInt pageOpenCount = 4.obs;
 
-  final adUnitId = savedTextsBannerAdId;
+  final adUnitId = openSavedTextsInterstitialAdId;
 
   @override
   void onInit() {
@@ -36,6 +36,7 @@ class InterstitialAdController extends GetxController {
 
   void showInterstitialAd() {
     if (interstitialAdLoaded.value) {
+      print('Showing interstitial ad ');
       if (pageOpenCount.value < 3) {
         pageOpenCount.value++;
         Get.back();
@@ -47,6 +48,7 @@ class InterstitialAdController extends GetxController {
       interstitialAdLoaded.value = false;
       loadInterstitialAd();
     } else {
+      print('Showing interstitial ada $interstitialAd');
       Get.back();
       Get.toNamed(Routes.SAVED_TEXTS);
     }
@@ -84,7 +86,7 @@ class InterstitialAdController extends GetxController {
             onAdClicked: (ad) {},
           );
 
-          print('$ad loaded.');
+          print('$ad loaded.s');
           // Keep a reference to the ad so you can show it later.
           interstitialAd = ad;
           interstitialAdLoaded.value = true;

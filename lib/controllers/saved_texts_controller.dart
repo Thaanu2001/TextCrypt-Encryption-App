@@ -25,8 +25,9 @@ class SavedTextsController extends GetxController {
   final RxList<SaveText> savedTexts = <SaveText>[].obs;
 
   BannerAd? savedTextsBannerAd;
+  Rx<AdSize?> savedTextsBannerAdSize = Rx<AdSize?>(null);
   RxBool savedTextsBannerAdLoaded = false.obs;
-  final adUnitId = openSavedTextsInterstitialAdId;
+  final adUnitId = savedTextsBannerAdId;
 
   @override
   void onInit() {
@@ -154,17 +155,21 @@ class SavedTextsController extends GetxController {
   }
 
   void loadSavedTextsBannerAd() async {
-    final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    final size = await AdSize.getInlineAdaptiveBannerAdSize(
+      MediaQuery.sizeOf(Get.context!).width.truncate() - 32,
       MediaQuery.sizeOf(Get.context!).width.truncate() - 32,
     );
 
-    savedTextsBannerAd = BannerAd(
+    BannerAd(
       adUnitId: adUnitId,
       request: const AdRequest(),
-      size: size!,
+      size: size,
       listener: BannerAdListener(
-        onAdLoaded: (ad) {
+        onAdLoaded: (ad) async {
           debugPrint('$ad loaded.');
+          savedTextsBannerAd = ad as BannerAd;
+          savedTextsBannerAdSize.value =
+              await savedTextsBannerAd!.getPlatformAdSize();
           savedTextsBannerAdLoaded.value = true;
         },
         onAdFailedToLoad: (ad, err) {

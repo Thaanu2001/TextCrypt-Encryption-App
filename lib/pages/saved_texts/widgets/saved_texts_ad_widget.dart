@@ -17,8 +17,12 @@ class SavedTextsAdWidget extends GetView<SavedTextsController> {
       () => !controller.savedTextsBannerAdLoaded.value
           ? const SizedBox.shrink()
           : SizedBox(
-              width: controller.savedTextsBannerAd!.size.width.toDouble(),
-              height: controller.savedTextsBannerAd!.size.height.toDouble(),
+              width:
+                  controller.savedTextsBannerAdSize.value?.width.toDouble() ??
+                      320,
+              height:
+                  controller.savedTextsBannerAdSize.value?.height.toDouble() ??
+                      50,
               child: AdWidget(ad: controller.savedTextsBannerAd!),
             ),
     );
