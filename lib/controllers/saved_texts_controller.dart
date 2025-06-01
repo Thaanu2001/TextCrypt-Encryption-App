@@ -7,7 +7,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../constants/string_constants.dart';
@@ -150,7 +150,7 @@ class SavedTextsController extends GetxController {
       Get.back();
       view();
     } else if (value == 'share') {
-      Share.share(text.text);
+      SharePlus.instance.share(ShareParams(text: text.text));
     }
   }
 

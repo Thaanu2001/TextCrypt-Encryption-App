@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../components/custom_button.dart';
 import '../components/custom_popup.dart';
@@ -126,7 +126,7 @@ class HomeController extends GetxController {
 
   void shareFunction() {
     FocusManager.instance.primaryFocus?.unfocus();
-    Share.share(textController.text);
+      SharePlus.instance.share(ShareParams(text: textController.text));
   }
 
   void encryptText() {
