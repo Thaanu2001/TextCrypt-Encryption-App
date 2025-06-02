@@ -14,14 +14,16 @@ Future purchasePremiumPopup(BuildContext context) {
 
   return customPopup(
     context: context,
-    topic: 'Remove Ads',
+    topic: 'premium.Remove_Ads'.tr,
     width: 0.8,
     body: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 10),
         Text(
-          'Remove ads and support the development of this app by purchasing premium for ${premiumController.product?.priceString}.',
+          'premium.Remove_ads_and_support_the_development_of_this_app_by_purchasing_premium_for'
+                  .tr +
+              ' ${premiumController.product?.priceString}.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 20),
@@ -30,7 +32,7 @@ Future purchasePremiumPopup(BuildContext context) {
           children: [
             Expanded(
               child: CustomButton(
-                text: 'Cancel',
+                text: 'premium.Cancel'.tr,
                 buttonType: ButtonType.secondary,
                 onTap: () => Get.back(),
               ),
@@ -38,7 +40,7 @@ Future purchasePremiumPopup(BuildContext context) {
             const SizedBox(width: 20),
             Expanded(
               child: CustomButton(
-                text: 'Purchase',
+                text: 'premium.Purchase'.tr,
                 onTap: () {
                   Get.back(result: false);
                   Get.toNamed(Routes.PREMIUM);

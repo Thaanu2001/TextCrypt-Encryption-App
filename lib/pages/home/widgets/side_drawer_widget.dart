@@ -33,7 +33,7 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
             child: Row(
               children: [
                 Text(
-                  'Menu',
+                  'home.Menu'.tr,
                   style: GoogleFonts.robotoMono(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
                     ),
                   ),
                   title: Text(
-                    'Saved Texts',
+                    'home.Saved_Texts'.tr,
                     style: GoogleFonts.robotoMono(
                       fontSize: 16,
                       color: Colors.white,
@@ -77,7 +77,7 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
                     ),
                   ),
                   title: Text(
-                    'Premium',
+                    'home.Premium'.tr,
                     style: GoogleFonts.robotoMono(
                       fontSize: 16,
                       color: Colors.white,
@@ -91,6 +91,28 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
                 ListTile(
                   splashColor: AppTheme.greyShade1,
                   leading: SvgPicture.asset(
+                    'assets/icons/language.svg',
+                    width: 18,
+                    colorFilter: ColorFilter.mode(
+                      AppTheme.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: Text(
+                    'home.Language'.tr,
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.LANGUAGE);
+                  },
+                ),
+                ListTile(
+                  splashColor: AppTheme.greyShade1,
+                  leading: SvgPicture.asset(
                     'assets/icons/info.svg',
                     width: 18,
                     colorFilter: ColorFilter.mode(
@@ -99,7 +121,7 @@ class SideDrawerWidget extends GetView<InterstitialAdController> {
                     ),
                   ),
                   title: Text(
-                    'Info',
+                    'home.Info'.tr,
                     style: GoogleFonts.robotoMono(
                       fontSize: 16,
                       color: Colors.white,

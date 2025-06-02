@@ -86,7 +86,7 @@ class InterstitialAdController extends GetxController {
             onAdClicked: (ad) {},
           );
 
-          print('$ad loaded.s');
+          print('$ad loaded.');
           // Keep a reference to the ad so you can show it later.
           interstitialAd = ad;
           interstitialAdLoaded.value = true;

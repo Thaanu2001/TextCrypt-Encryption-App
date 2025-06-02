@@ -70,15 +70,15 @@ class SavedTextsController extends GetxController {
       await insertTextData(saveText);
 
       Get.snackbar(
-        'Success',
-        'Text saved successfully!',
+        'saved_texts.Success'.tr,
+        'saved_texts.Text_saved_successfully'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to save text.',
+        'saved_texts.Error'.tr,
+        'saved_texts.Failed_to_save_text'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -105,8 +105,8 @@ class SavedTextsController extends GetxController {
       savedTexts.sort((a, b) => b.id!.compareTo(a.id!));
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load saved texts.',
+        'saved_texts.Error',
+        'saved_texts.Failed_to_load_saved_texts'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -124,16 +124,16 @@ class SavedTextsController extends GetxController {
       );
       savedTexts.removeWhere((text) => text.id == id);
       Get.snackbar(
-        'Success',
-        'Text deleted successfully!',
+        'saved_texts.Success'.tr,
+        'saved_texts.Text_deleted_successfully'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
       await getSavedTexts();
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to delete text.',
+        'saved_texts.Error'.tr,
+        'saved_texts.Failed_to_delete_text'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -194,15 +194,15 @@ class SavedTextsController extends GetxController {
       OpenFile.open(file.path);
 
       Get.snackbar(
-        'Export Successful',
-        'Saved texts exported to $fileName',
+        'saved_texts.Export_Successful'.tr,
+        'saved_texts.Saved_texts_exported_to'.tr + ' $fileName',
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to export saved texts.',
+        'saved_texts.Error'.tr,
+        'saved_texts.Failed_to_export_saved_texts'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -223,8 +223,8 @@ class SavedTextsController extends GetxController {
           importSavedTexts(file);
         } else {
           Get.snackbar(
-            'File Not Found',
-            'The selected file does not exist.',
+            'saved_texts.File_Not_Found'.tr,
+            'saved_texts.The_selected_file_does_not_exist'.tr,
             backgroundColor: AppTheme.grey,
             colorText: AppTheme.white,
           );
@@ -232,8 +232,8 @@ class SavedTextsController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to select file.',
+        'saved_texts.Error'.tr,
+        'saved_texts.Failed_to_select_file'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -255,16 +255,16 @@ class SavedTextsController extends GetxController {
         }
       }
       Get.snackbar(
-        'Import Successful',
-        'Saved texts imported successfully.',
+        'saved_texts.Import_Successful'.tr,
+        'saved_texts.Saved_texts_imported_successfully'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
       await getSavedTexts();
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to import saved texts.',
+        'saved_texts.Error'.tr,
+        'saved_texts.Failed_to_import_saved_texts'.tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );

@@ -21,7 +21,7 @@ class AnimatedTextWidget extends GetView<HomeController> {
         totalRepeatCount: 1,
         animatedTexts: [
           TypewriterAnimatedText(
-            'Enter your text',
+            'home.Enter_your_text'.tr,
             textStyle: GoogleFonts.robotoMono(
               fontSize: 20,
               color: Colors.white,

@@ -1,11 +1,11 @@
-import 'package:encrypt_decrypt_app/components/custom_button.dart';
-import 'package:encrypt_decrypt_app/constants/theme_constants.dart';
-import 'package:encrypt_decrypt_app/controllers/premium_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/custom_app_bar.dart';
+import '../../components/custom_button.dart';
 import '../../constants/string_constants.dart';
+import '../../constants/theme_constants.dart';
+import '../../controllers/premium_controller.dart';
 
 class PremiumPage extends GetView<PremiumController> {
   const PremiumPage({super.key});
@@ -17,7 +17,7 @@ class PremiumPage extends GetView<PremiumController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Premium Purchase',
+        title: 'premium.Premium_Purchase'.tr,
         leadingIcon: Icons.arrow_back,
         leadingOnTap: () => Get.back(),
       ),
@@ -32,12 +32,12 @@ class PremiumPage extends GetView<PremiumController> {
                 children: [
                   SizedBox(height: 10),
                   Text(
-                    'Support us and unlock a smoother, distraction-free app — no more ads, just you and the content.',
+                    'premium.desc_1'.tr,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Premium is a one-time purchase. Once you\'ve upgraded, you\'ll have lifetime access to the ad-free experience.',
+                    'premium.desc_2'.tr,
                   ),
                   SizedBox(height: 26),
                   Container(
@@ -59,7 +59,7 @@ class PremiumPage extends GetView<PremiumController> {
                         Row(
                           children: [
                             Text(
-                              'Premium',
+                              'premium.Premium'.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
@@ -82,9 +82,15 @@ class PremiumPage extends GetView<PremiumController> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          '• Ad-free experience.\n'
-                          '• Lifetime access.\n'
-                          '• Support the development of the application.',
+                          '• ' +
+                              'premium.Ad-free_experience'.tr +
+                              '\n'
+                                  '• ' +
+                              'premium.Lifetime_access'.tr +
+                              '\n'
+                                  '• ' +
+                              'premium.Support_the_development_of_the_application'
+                                  .tr,
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: AppTheme.white,
@@ -103,7 +109,7 @@ class PremiumPage extends GetView<PremiumController> {
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Active',
+                                  'premium.Active'.tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
@@ -114,24 +120,24 @@ class PremiumPage extends GetView<PremiumController> {
                               )
                             : CustomButton(
                                 onTap: () => controller.onPurchase(),
-                                text: 'Upgrade to Premium',
+                                text: 'premium.Upgrade_to_Premium'.tr,
                               ),
                       ],
                     ),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Thank you for considering supporting our app! Your contribution helps us keep improving and providing a great experience.',
+                    'premium.desc_3'.tr,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'If you have already purchased premium, please restore your purchase from the below button.',
+                    'premium.desc_4'.tr,
                   ),
                   SizedBox(height: 16),
                   CustomButton(
                     onTap: () => controller.onRestore(),
-                    text: 'Restore Purchase',
+                    text: 'premium.Restore_Purchase'.tr,
                     buttonType: ButtonType.secondary,
                   ),
                   SizedBox(height: MediaQuery.paddingOf(context).bottom + 8),
@@ -157,7 +163,7 @@ class PremiumPage extends GetView<PremiumController> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Please wait...',
+                          'premium.Please_wait'.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

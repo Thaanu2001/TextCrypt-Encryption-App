@@ -44,8 +44,8 @@ class PremiumController extends GetxController {
         isPremium.value = true;
         Get.offAllNamed(Routes.HOME);
         Get.snackbar(
-          'Purchase successful',
-          'You have successfully purchased the premium membership.',
+          'premium.Purchase_successful'.tr,
+          'premium.You_have_successfully_purchased_the_premium_membership'.tr,
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
@@ -54,16 +54,18 @@ class PremiumController extends GetxController {
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
       if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
         Get.snackbar(
-          'Transaction failed',
-          'An error occurred while processing your purchase: ${e.message}',
+          'premium.Transaction_failed'.tr,
+          'premium.An_error_occurred_while_processing_your_purchase'.tr +
+              ' ${e.message}',
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
       }
     } catch (e) {
       Get.snackbar(
-        'Transaction failed',
-        'An error occurred while processing your purchase. Please try again later.',
+        'premium.Transaction_failed'.tr,
+        'premium.An_error_occurred_while_processing_your_purchase._Please_try_again_later'
+            .tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
@@ -78,8 +80,8 @@ class PremiumController extends GetxController {
 
       if (isPremium.value == true) {
         Get.snackbar(
-          'Already Subscribed',
-          'You already have an active subscription.',
+          'premium.Already_Subscribed'.tr,
+          'premium.You_already_have_an_active_subscription'.tr,
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
@@ -92,16 +94,17 @@ class PremiumController extends GetxController {
         Get.offAllNamed(Routes.HOME);
 
         Get.snackbar(
-          'Subscription Restored',
-          'Your subscription has been restored successfully.',
+          'premium.Subscription_Restored'.tr,
+          'premium.Your_subscription_has_been_restored_successfully'.tr,
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
       } else {
         isPremium.value = false;
         Get.snackbar(
-          'No Active Subscription',
-          'No active subscription found. Please purchase a subscription.',
+          'premium.No_Active_Subscription'.tr,
+          'premium.No_active_subscription_found_Please_purchase_a_subscription'
+              .tr,
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
@@ -110,16 +113,18 @@ class PremiumController extends GetxController {
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
       if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
         Get.snackbar(
-          'Transaction failed',
-          'An error occurred while restoring your subscription: ${e.message}',
+          'premium.Transaction_failed'.tr,
+          'premium.An_error_occurred_while_processing_your_purchase'.tr +
+              ' ${e.message}',
           backgroundColor: AppTheme.grey,
           colorText: AppTheme.white,
         );
       }
     } catch (e) {
       Get.snackbar(
-        'Transaction failed',
-        'An error occurred while restoring your subscription. Please try again later.',
+        'premium.Transaction_failed'.tr,
+        'premium.An_error_occurred_while_processing_your_purchase._Please_try_again_later'
+            .tr,
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );

@@ -1,9 +1,12 @@
 import 'dart:io';
 
+const defaultLanguage = "en";
+
 const homeControllerTag = "home_controller_tag";
 const interstitialAdControllerTag = "interstitial_ad_controller_tag";
 const savedTextsControllerTag = "saved_texts_controller_tag";
 const premiumControllerTag = "premium_controller_tag";
+const languageControllerTag = "language_controller_tag";
 
 final homeBannerAdId = Platform.isAndroid
     ? "ca-app-pub-2355989529954940/1828338947"

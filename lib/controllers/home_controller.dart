@@ -12,7 +12,7 @@ import '../components/custom_popup.dart';
 import '../constants/string_constants.dart';
 import '../models/save_text_model.dart';
 import '../pages/premium/widgets/purchase_premium_popup.dart';
-import '../pbkdf2.dart';
+import '../util/helpers/pbkdf2.dart';
 import 'premium_controller.dart';
 import 'saved_texts_controller.dart';
 
@@ -126,7 +126,7 @@ class HomeController extends GetxController {
 
   void shareFunction() {
     FocusManager.instance.primaryFocus?.unfocus();
-      SharePlus.instance.share(ShareParams(text: textController.text));
+    SharePlus.instance.share(ShareParams(text: textController.text));
   }
 
   void encryptText() {
@@ -158,16 +158,16 @@ class HomeController extends GetxController {
     } else {
       customPopup(
         context: Get.context!,
-        topic: 'Empty Fields',
+        topic: 'home.Empty_Fields'.tr,
         body: Column(
           children: [
             Text(
-              'Please enter both text and password to encrypt',
+              'home.Please_enter_both_text_and_password_to_encrypt'.tr,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             CustomButton(
-              text: 'Ok',
+              text: 'home.Ok'.tr,
               onTap: () => Get.back(),
             ),
           ],
@@ -207,16 +207,16 @@ class HomeController extends GetxController {
           'Invalid argument(s): Invalid or corrupted pad block') {
         customPopup(
           context: Get.context!,
-          topic: 'Wrong Password',
+          topic: 'home.Wrong_Password'.tr,
           body: Column(
             children: [
-              const Text(
-                'Password you entered does not match',
+              Text(
+                'home.Password_you_entered_does_not_match'.tr,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
               CustomButton(
-                text: 'Ok',
+                text: 'home.Ok'.tr,
                 onTap: () => Get.back(),
               ),
             ],
@@ -225,16 +225,16 @@ class HomeController extends GetxController {
       } else {
         customPopup(
           context: Get.context!,
-          topic: 'Invalid Input',
+          topic: 'home.Invalid_Input'.tr,
           body: Column(
             children: [
-              const Text(
-                'Invalid text or password entered',
+              Text(
+                'home.Invalid_text_or_password_entered'.tr,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
               CustomButton(
-                text: 'Ok',
+                text: 'home.Ok'.tr,
                 onTap: () => Get.back(),
               ),
             ],
@@ -270,16 +270,16 @@ class HomeController extends GetxController {
     if (textController.text.isEmpty || passController.text.isEmpty) {
       customPopup(
         context: Get.context!,
-        topic: 'Empty Fields',
+        topic: 'home.Empty_Fields'.tr,
         body: Column(
           children: [
-            const Text(
-              'Please enter both text and password to decrypt',
+            Text(
+              'home.Please_enter_both_text_and_password_to_encrypt'.tr,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             CustomButton(
-              text: 'Ok',
+              text: 'home.Ok'.tr,
               onTap: () => Get.back(),
             ),
           ],

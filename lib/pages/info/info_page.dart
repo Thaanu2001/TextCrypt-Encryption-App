@@ -1,7 +1,9 @@
-import 'package:encrypt_decrypt_app/components/custom_app_bar.dart';
-import 'package:encrypt_decrypt_app/constants/theme_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../components/custom_app_bar.dart';
+import '../../constants/theme_constants.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -10,7 +12,7 @@ class InfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Info',
+        title: 'info.Info'.tr,
         toolbarHeight: 60,
         leadingIcon: Icons.arrow_back,
         leadingOnTap: () => Navigator.of(context).pop(),
@@ -39,7 +41,8 @@ class InfoPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'TextCrypt is a simple and secure app for encrypting and decrypting text.',
+                  'info.TextCrypt_is_a_simple_and_secure_app_for_encrypting_and_decrypting_text'
+                      .tr,
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -49,7 +52,7 @@ class InfoPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "How TextCrypt Works",
+                    "info.How_TextCrypt_Works".tr,
                     style: GoogleFonts.notoSans(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -57,7 +60,7 @@ class InfoPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    "🔑 Step 1: Get the Password",
+                    "🔑 " + "info.Step_1".tr,
                     style: GoogleFonts.notoSans(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -65,80 +68,80 @@ class InfoPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "The user enters a password. This will be used to generate a secure key.",
+                    "info.Step_1_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "🧂 Step 2: Add Salt",
+                    "🧂 " + "info.Step_2".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "We combine the password with a 'salt' (a random string) to make the result unique.",
+                    "info.Step_2_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "🔁 Step 3: Strengthen the Password with PBKDF2",
+                    "🔁 " + "info.Step_3".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "PBKDF2 uses SHA256 and 1000 rounds of hashing to make the password stronger and more secure.",
+                    "info.Step_3_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "🧪 Step 4: Convert to Fixed-Length with MD5",
+                    "🧪 " + "info.Step_4".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "The PBKDF2 result is hashed using MD5 to produce a 16-byte fixed-length key for AES.",
+                    "info.Step_4_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "🗝️ Step 5: Create AES Key",
+                    "🗝️ " + "info.Step_5".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "We convert the MD5 result into a key suitable for AES encryption.",
+                    "info.Step_5_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "🔒 Step 6: Encrypt the Text",
+                    "🔒 " + "info.Step_6".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "The user's text is encrypted using AES and the key created above.",
+                    "info.Step_6_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "📄 Final Output: Encrypted Text",
+                    "📄 " + "info.Step_7".tr,
                     style: GoogleFonts.notoSans(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "The result looks like random characters and can only be decrypted using the correct password.",
+                    "info.Step_7_desc".tr,
                     style: GoogleFonts.notoSans(fontSize: 16),
                   ),
                 ],
               ),
               SizedBox(height: 20),
               Text(
-                'If you have any questions or suggestions, feel free to reach out to us at: contact@eleetra.com',
+                'info.contact'.tr,
                 style: GoogleFonts.notoSans(fontSize: 16),
               ),
               SizedBox(height: 20),

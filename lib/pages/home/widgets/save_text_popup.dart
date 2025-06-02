@@ -1,11 +1,11 @@
-import 'package:encrypt_decrypt_app/constants/string_constants.dart';
-import 'package:encrypt_decrypt_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/custom_button.dart';
 import '../../../components/custom_popup.dart';
+import '../../../constants/string_constants.dart';
+import '../../../controllers/home_controller.dart';
 
 void saveTextPopup(BuildContext context) {
   final HomeController controller = Get.find<HomeController>(
@@ -14,7 +14,7 @@ void saveTextPopup(BuildContext context) {
 
   return customPopup(
     context: context,
-    topic: 'Save Encrypted Text',
+    topic: 'home.Save_Encrypted_Text'.tr,
     width: 0.8,
     body: Form(
       key: controller.savedTextFormKey,
@@ -23,12 +23,12 @@ void saveTextPopup(BuildContext context) {
         children: [
           const SizedBox(height: 10),
           Text(
-            'This text will only be saved locally on your device. You can access it later from the "Saved Texts" section on side drawer.',
+            'home.save_text_popup_desc_1'.tr,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
           Text(
-            'Your password will not be saved with the text.',
+            'home.save_text_popup_desc_2'.tr,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 20),
@@ -38,11 +38,11 @@ void saveTextPopup(BuildContext context) {
             style: GoogleFonts.robotoMono(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.w400),
             decoration: new InputDecoration(
-              hintText: 'Name for the text',
+              hintText: 'home.Name_for_the_text'.tr,
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter a name for the text';
+                return 'home.Please_enter_a_name_for_the_text'.tr;
               }
               return null;
             },
@@ -55,7 +55,7 @@ void saveTextPopup(BuildContext context) {
                 controller.showSaveTextInterstitialAd();
               }
             },
-            text: 'Save',
+            text: 'home.Save'.tr,
           ),
         ],
       ),
