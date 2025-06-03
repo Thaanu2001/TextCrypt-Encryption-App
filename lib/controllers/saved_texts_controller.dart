@@ -150,7 +150,17 @@ class SavedTextsController extends GetxController {
       Get.back();
       view();
     } else if (value == 'share') {
-      SharePlus.instance.share(ShareParams(text: text.text));
+      SharePlus.instance.share(
+        ShareParams(
+          text: text.text,
+          sharePositionOrigin: Rect.fromLTWH(
+            0,
+            0,
+            MediaQuery.of(Get.context!).size.width,
+            MediaQuery.of(Get.context!).size.height,
+          ),
+        ),
+      );
     }
   }
 

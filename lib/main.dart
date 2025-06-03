@@ -20,11 +20,11 @@ import 'util/localization/localization.g.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-  if (kDebugMode) {
-    MobileAds.instance.updateRequestConfiguration(
-      RequestConfiguration(testDeviceIds: ['e0053cdea2b90e74876eba6e3048e6b8']),
-    );
-  }
+  // if (kDebugMode) {
+  //   MobileAds.instance.updateRequestConfiguration(
+  //     RequestConfiguration(testDeviceIds: ['e0053cdea2b90e74876eba6e3048e6b8']),
+  //   );
+  // }
 
   await initRevenueCat();
 
@@ -35,7 +35,7 @@ void main() async {
 }
 
 Future<void> initRevenueCat() async {
-  await Purchases.setLogLevel(LogLevel.debug);
+  await Purchases.setLogLevel(LogLevel.error);
 
   PurchasesConfiguration configuration;
   configuration = PurchasesConfiguration(

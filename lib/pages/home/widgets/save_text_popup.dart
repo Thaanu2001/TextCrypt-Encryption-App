@@ -35,8 +35,12 @@ void saveTextPopup(BuildContext context) {
           TextFormField(
             controller: controller.savedTextController,
             textInputAction: TextInputAction.done,
+            textCapitalization: TextCapitalization.sentences,
             style: GoogleFonts.robotoMono(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w400),
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
             decoration: new InputDecoration(
               hintText: 'home.Name_for_the_text'.tr,
             ),

@@ -126,7 +126,17 @@ class HomeController extends GetxController {
 
   void shareFunction() {
     FocusManager.instance.primaryFocus?.unfocus();
-    SharePlus.instance.share(ShareParams(text: textController.text));
+    SharePlus.instance.share(
+      ShareParams(
+        text: textController.text,
+        sharePositionOrigin: Rect.fromLTWH(
+          0,
+          0,
+          MediaQuery.of(Get.context!).size.width,
+          MediaQuery.of(Get.context!).size.height,
+        ),
+      ),
+    );
   }
 
   void encryptText() {
