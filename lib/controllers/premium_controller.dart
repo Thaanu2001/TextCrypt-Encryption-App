@@ -18,7 +18,11 @@ class PremiumController extends GetxController {
 
   void getSubscriptionStatus() async {
     try {
-      product = (await Purchases.getProducts(['premium_1'])).first;
+      product = (await Purchases.getProducts(
+        ['premium_1'],
+        productCategory: ProductCategory.nonSubscription,
+      ))
+          .first;
 
       CustomerInfo customerInfo = await Purchases.getCustomerInfo();
       if (customerInfo.entitlements.all['premium']?.isActive == true) {
@@ -35,7 +39,10 @@ class PremiumController extends GetxController {
   void onPurchase() async {
     try {
       purchaseInProgress.value = true;
-      final products = await Purchases.getProducts(['premium_1']);
+      final products = await Purchases.getProducts(
+        ['premium_1'],
+        productCategory: ProductCategory.nonSubscription,
+      );
       CustomerInfo customerInfo = await Purchases.purchaseStoreProduct(
         products.first,
       );

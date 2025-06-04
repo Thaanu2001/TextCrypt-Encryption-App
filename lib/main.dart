@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,7 +21,10 @@ void main() async {
   MobileAds.instance.initialize();
   // if (kDebugMode) {
   //   MobileAds.instance.updateRequestConfiguration(
-  //     RequestConfiguration(testDeviceIds: ['e0053cdea2b90e74876eba6e3048e6b8']),
+  //     RequestConfiguration(testDeviceIds: [
+  //       'e0053cdea2b90e74876eba6e3048e6b8',
+  //       '3FAF10C89F616C92EAFDD1D3CBDDBC0C',
+  //     ]),
   //   );
   // }
 
