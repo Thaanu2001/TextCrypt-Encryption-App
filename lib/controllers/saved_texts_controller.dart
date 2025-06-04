@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:external_path/external_path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -192,23 +194,32 @@ class SavedTextsController extends GetxController {
 
   void exportSavedTexts() async {
     try {
+      await _permissionRequest();
+
       final String csvData = savedTexts
           .map((text) => '${text.text},${text.description}')
           .join('\n');
       final String fileName = 'textcrypt_saved_texts.csv';
-      final Directory directory = Platform.isAndroid
-          ? await getExternalStorageDirectory() ?? Directory.systemTemp
-          : await getApplicationDocumentsDirectory();
-      final File file = File(join(directory.path, fileName));
-      await file.writeAsString(csvData);
-      OpenFile.open(file.path);
+      final String? directory = Platform.isAndroid
+          ? await ExternalPath.getExternalStoragePublicDirectory(
+              ExternalPath.DIRECTORY_DOWNLOAD,
+            )
+          : (await getApplicationDocumentsDirectory()).path;
 
-      Get.snackbar(
-        'saved_texts.Export_Successful'.tr,
-        'saved_texts.Saved_texts_exported_to'.tr + ' $fileName',
-        backgroundColor: AppTheme.grey,
-        colorText: AppTheme.white,
-      );
+      if (directory != null) {
+        final File file = File(join(directory, fileName));
+        await file.writeAsString(csvData);
+        OpenFile.open(file.path);
+
+        Get.snackbar(
+          'saved_texts.Export_Successful'.tr,
+          'saved_texts.Saved_texts_exported_to'.tr + ' $fileName',
+          backgroundColor: AppTheme.grey,
+          colorText: AppTheme.white,
+        );
+      } else {
+        throw Exception('Directory not found');
+      }
     } catch (e) {
       Get.snackbar(
         'saved_texts.Error'.tr,
@@ -216,6 +227,20 @@ class SavedTextsController extends GetxController {
         backgroundColor: AppTheme.grey,
         colorText: AppTheme.white,
       );
+    }
+  }
+
+  static Future<bool> _permissionRequest() async {
+    try {
+      PermissionStatus result;
+      result = await Permission.storage.request();
+      if (result.isGranted) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 
