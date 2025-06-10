@@ -50,8 +50,8 @@ android {
         applicationId "lk.egen.textcrypt"
         minSdkVersion 23
         targetSdkVersion 35
-        versionCode 2
-        versionName '1.0'
+        versionCode 7
+        versionName '1.0.1'
     }
 
     signingConfigs {
